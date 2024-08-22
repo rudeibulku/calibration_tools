@@ -21,6 +21,9 @@ find_package(autoware_auto_vehicle_msgs REQUIRED)
 find_package(rviz2_capture_plugin_interface REQUIRED)
 find_package(FAST_GICP REQUIRED)
 find_package(PCL REQUIRED)
+
+find_package(pcl_conversions REQUIRED)
+
 find_package(Eigen3 REQUIRED)
 ament_auto_find_build_dependencies()
 
@@ -33,6 +36,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   ${FAST_GICP_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
+  
+  ${pcl_conversions_INCLUDE_DIRS}
 )
 
 install(TARGETS
@@ -48,5 +53,5 @@ install(
   DIRECTORY config
   DESTINATION share/${PROJECT_NAME}/
 )
-
+ament_export_include_directories(include)
 ament_package()

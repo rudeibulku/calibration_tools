@@ -17,10 +17,10 @@
     file_pcd: "result_with_sub_lidar.pcd"
 
     # Topic for main lidar
-    main_lidar_topic: "/sensing/lidar/top/rectified/pointcloud"
+    main_lidar_topic: "/sensing/lidar/top/pointcloud_raw_ex"
 
     # Topic for sub lidar
-    sub_lidar_topic: "/rslidar_points"
+    sub_lidar_topic: "/sensing/lidar/front/pointcloud_raw_ex"
 
     # Topic for velocity status
     velocity_status_topic: "/vehicle/status/velocity_status"
