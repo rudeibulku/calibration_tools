@@ -32,16 +32,16 @@ MultiLidarCalibSub::MultiLidarCalibSub()
   vehicle_stoped_count_(0),
   pointcloud_stored_count_(0)
 {
-  std::string main_lidar_topic = this->declare_parameter("main_lidar_topic", "/sensing/lidar/top/rectified/pointcloud");
-  std::string sub_lidar_topic = this->declare_parameter("sub_lidar_topic", "/rslidar_points");
+  std::string main_lidar_topic = this->declare_parameter("main_lidar_topic", "/sensing/lidar/top/pointcloud_raw_ex");
+  std::string sub_lidar_topic = this->declare_parameter("sub_lidar_topic", "/sensing/lidar/front/pointcloud_raw_ex");
   std::string velocity_status_topic = this->declare_parameter("velocity_status_topic", "/vehicle/status/velocity_status");
 
   lidar_main_subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-    main_lidar_topic, 10, std::bind(&MultiLidarCalibSub::lidar_main_callback, this, std::placeholders::_1));
+    main_lidar_topic, rclcpp::SensorDataQoS().keep_last(10), std::bind(&MultiLidarCalibSub::lidar_main_callback, this, std::placeholders::_1));
   lidar_sub_subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-    sub_lidar_topic, 10, std::bind(&MultiLidarCalibSub::lidar_sub_callback, this, std::placeholders::_1));
+    sub_lidar_topic, rclcpp::SensorDataQoS().keep_last(10), std::bind(&MultiLidarCalibSub::lidar_sub_callback, this, std::placeholders::_1));
   vehicle_velocity_subscription_ = this->create_subscription<autoware_auto_vehicle_msgs::msg::VelocityReport>(
-    velocity_status_topic, 50, std::bind(&MultiLidarCalibSub::vehicle_velocity_callback, this, std::placeholders::_1));
+    velocity_status_topic, rclcpp::SensorDataQoS().keep_last(10), std::bind(&MultiLidarCalibSub::vehicle_velocity_callback, this, std::placeholders::_1));
 
   srv_capture = this->create_service<rviz2_capture_plugin_interface::srv::Capture>(
   "/multi_lidar_calib/capture", 

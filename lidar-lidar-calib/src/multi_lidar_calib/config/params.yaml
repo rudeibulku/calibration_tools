@@ -8,7 +8,7 @@
     total_count: 5
 
     # save calib results to 
-    save_path: "./"
+    save_path: "./projects"
 
     # save calib results file
     file_res: "calib_res.csv"
